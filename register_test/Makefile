@@ -1,5 +1,5 @@
 INC_DIR:= . /usr/local/include/zookeeper/ 
-SRCS:= $(wildcard ./*cc )
+SRCS:= $(wildcard ./*cc  ../common/*cc)
 OBJS:= $(patsubst %.cc, %.o, $(SRCS))
 LIBS:= -lpthread -lzookeeper_mt 
 #LIBS:= -lpthread -lzookeeper_st
@@ -8,7 +8,7 @@ CXX:= g++
 
 CXXFLAGS:= -w -g -std=c++11 $(addprefix -I, $(INC_DIR)) $(LIBS) -Wl,-rpath="/usr/local/lib"
 
-EXE:= zk_test
+EXE:= ../bin/register_test
 
 all: $(EXE)
 

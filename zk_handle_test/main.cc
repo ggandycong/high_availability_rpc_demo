@@ -1,10 +1,10 @@
 
-#include"zk_handle.h"
-
 #include<unistd.h>
 #include<stdio.h>
 
 #include<string>
+
+#include"../common/zk_handle.h"
 
 const char* host_list = "127.0.0.1:2181";
 const int time_out = 3000;
@@ -14,7 +14,7 @@ int main(){
 	zoo_set_debug_level(ZOO_LOG_LEVEL_ERROR);
 	ZkHandle zkhandle;
 	
-	if(zkhandle.zkInit(host_list, time_out) == 0){
+	if(zkhandle.zkInit(host_list, time_out) != 0){
 		printf(" zkInit ok \n");		
 	}
 	struct Stat stat;

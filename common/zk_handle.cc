@@ -33,10 +33,6 @@ int ZkHandle::zkClose(){
 }
 
 void ZkHandle::zkInitWatcher(zhandle_t* zh, int type, int state, const char* path, void* watcherCtx){
-
-  	//if(3 == state){
-		//连接成功	
-	//}
     printf("ZkHandle::ZkInitWatchar: [type=%d] [state=%d] [path=%s] [watcher_ctx=%p]\n", type, state, path, watcherCtx);
 }
 
@@ -133,7 +129,7 @@ int ZkHandle::zkGetNodeInfo(const string& path, string & info, struct Stat& stat
     }
 
     buffer[buffer_len] = 0;
-    printf("CZkHandle::ZkGetNodeInfo get node info for path=%s succ. buffer=%s\n", path.c_str(), buffer);
+    printf("CZkHandle::ZkGetNodeInfo get node info for path=%s succ. value=%s\n", path.c_str(), buffer);
     printf("CZkHandle::ZkGetNodeInfo: [path=%s] [czxid=%ld] [mzxid=%ld] [version=%d] [cversion=%d] [child_num=%d]\n",
         path.c_str(), stat.czxid, stat.mzxid, stat.version, stat.cversion, stat.numChildren);
 

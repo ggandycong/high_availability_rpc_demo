@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package ping;
+
+// The ping service definition.
+//定义Ping的消息接口，
+//提供了简约版ping接口，参数和返回值都是字符串
+service Ping {
+  // Sends a ping()
+  rpc sendPing(PingRequest) returns (PingReply) {}
+}
+
+// The request message containing the ping.
+message PingRequest {
+  string ping = 1;
+}
+
+// The response message containing the pong.
+message PingReply {
+  string pong = 2;
+}

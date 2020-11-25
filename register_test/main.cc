@@ -16,18 +16,23 @@ using std::set;
 const char* host_list = "127.0.0.1:2181";
 const int time_out = 3000;
 //临时节点,而且不是序列化
-std::string nodeMsg = "IP[127.0.0.1]PORT[2181]ZK_PATH[/zk_test]IS_EPHEMERAL[1]IS_SEQUENCE[0]";
+std::string nodeMsg = "IP[127.0.0.1]PORT[12345]ZK_PATH[/server/host1]IS_EPHEMERAL[1]IS_SEQUENCE[0]";
 
 int main(){
-
 	zoo_set_debug_level(ZOO_LOG_LEVEL_ERROR);
 	struct Stat stat;
     set<string> node_list;
     string path_info;
+    std::string raw_name;
 
 	std::shared_ptr<ZkHandle> pZkhandle(new ZkHandle);
 	if(pZkhandle->zkInit(host_list, time_out) == 0){
 		printf("pZkhandle zkInit ok \n");		
+	}
+
+	//创建永久节点
+	if(pZkhandle->zkExists("/server", stat)!=0){
+		pZkhandle->zkCreateNode("/server", "this is a server", false,false,  raw_name);
 	}
 
 	ZKRegister zkRegister(pZkhandle);
@@ -38,9 +43,9 @@ int main(){
 	pZkhandle->zkGetChildren("/",node_list);
 	pZkhandle->zkGetNodeInfo(zkNode.m_zk_path.c_str(),path_info,stat);
 
-
-	zkRegister.zkUnDoRegister();
-	pZkhandle->zkGetChildren("/",node_list);
+	//解除注册
+/*	zkRegister.zkUnDoRegister();
+	pZkhandle->zkGetChildren("/",node_list);*/
 
 
 	while(1){

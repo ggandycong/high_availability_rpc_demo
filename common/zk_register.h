@@ -8,7 +8,6 @@
 #include"zk_handle.h"
 
 class ZKRegister{
-
 public:
 	ZKRegister(std::shared_ptr<ZkHandle> zkHandle =nullptr)
 		:m_zkHandle(zkHandle){}
@@ -17,7 +16,6 @@ public:
 	ZKRegister(ZKRegister&& ) = delete;
 	ZKRegister& operator=(const ZKRegister&) = delete;
 
-
 public:
 	//注册节点
 	int zkDoRegister();
@@ -25,7 +23,7 @@ public:
 
     void setZkNode(const ZkNodeInfo& zkNode);
 
-public:
+private:
 	std::shared_ptr<ZkHandle> m_zkHandle;
 	ZkNodeInfo m_zkNode;
 };

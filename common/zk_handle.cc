@@ -96,7 +96,7 @@ int ZkHandle::zkGetChildren(const string& path, set<string>& node_list){
 
     if (ZOK != ret_code)
     {
-        printf("CZkHandle::ZkGetChildren get children fail. ret=%d\n", ret_code);
+        printf("ZkHandle::ZkGetChildren get children fail. ret=%d\n", ret_code);
         return ret_code;
     }
     
@@ -124,13 +124,13 @@ int ZkHandle::zkGetNodeInfo(const string& path, string & info, struct Stat& stat
 
     if (ZOK != ret_code)
     {
-        printf("CZkHandle::ZkGetNodeInfo get node info for path=%s fail. ret=%d\n", path.c_str(), ret_code);
+        printf("ZkHandle::ZkGetNodeInfo get node info for path=%s fail. ret=%d\n", path.c_str(), ret_code);
         return ret_code;
     }
 
     buffer[buffer_len] = 0;
-    printf("CZkHandle::ZkGetNodeInfo get node info for path=%s succ. value=%s\n", path.c_str(), buffer);
-    printf("CZkHandle::ZkGetNodeInfo: [path=%s] [czxid=%ld] [mzxid=%ld] [version=%d] [cversion=%d] [child_num=%d]\n",
+    printf("ZkHandle::ZkGetNodeInfo get node info for path=%s succ. value=%s\n", path.c_str(), buffer);
+    printf("ZkHandle::ZkGetNodeInfo: [path=%s] [czxid=%ld] [mzxid=%ld] [version=%d] [cversion=%d] [child_num=%d]\n",
         path.c_str(), stat.czxid, stat.mzxid, stat.version, stat.cversion, stat.numChildren);
 
     info = buffer;

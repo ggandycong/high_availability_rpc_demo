@@ -7,6 +7,9 @@
 #include <memory>
 #include <string>
 #include<set>
+#include<sstream>
+#include<fstream>
+
 
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
@@ -31,7 +34,7 @@ using ping::Ping;
 const char* host_list = "127.0.0.1:2181";
 const int time_out = 3000;
 //临时节点,而且不是序列化
-std::string nodeMsg = "IP[127.0.0.1]PORT[12345]ZK_PATH[/ping/host1]IS_EPHEMERAL[1]IS_SEQUENCE[0]";
+//std::string nodeMsg = "IP[127.0.0.1]PORT[12345]ZK_PATH[/ping/host1]IS_EPHEMERAL[1]IS_SEQUENCE[0]";
 
 
 void RunServer(const std::string& server_address) {
@@ -52,8 +55,17 @@ void RunServer(const std::string& server_address) {
   // responsible for shutting down the server for this call to ever return.
   server->Wait();
 }
-
+std::string readFile(const std::string fileName){
+	std::ifstream t(fileName);
+	std::stringstream buffer;
+	buffer << t.rdbuf();
+	return buffer.str();
+}
 int main(int argc, char** argv) {
+	if(argc<2){
+		printf("%s, file.conf \n", argv[0]);
+		return -1;
+	}
 	printf("=======================start register server=====================\n");
 	zoo_set_debug_level(ZOO_LOG_LEVEL_ERROR);
 	struct Stat stat;
@@ -73,7 +85,7 @@ int main(int argc, char** argv) {
 
 	//注册节点
 	ZKRegister zkRegister(pZkhandle);
-	ZkNodeInfo zkNode(nodeMsg);
+	ZkNodeInfo zkNode(readFile(argv[1]));
 	zkRegister.setZkNode(zkNode);
 	zkRegister.zkDoRegister();
 
